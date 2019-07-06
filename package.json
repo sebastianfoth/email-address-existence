@@ -1,17 +1,39 @@
 {
   "name": "@sebastianfoth/email-address-existence",
-  "version": "0.0.1",
-  "description": "Checks if an email address exists",
+  "version": "0.0.3",
+  "description": "A library written in Typescript which tries to check if an email address really exists",
+  "homepage": "https://github.com/sebastianfoth/email-address-existence",
+  "bugs": {
+    "url": "https://github.com/sebastianfoth/email-address-existence/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebastianfoth/email-address-existence"
+  },
+  "keywords": [
+    "email",
+    "emails",
+    "mail",
+    "exists",
+    "existence",
+    "check",
+    "validate",
+    "validation",
+    "verify",
+    "verification",
+    "smtp",
+    "typescript"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "author": "Sebastian Foth",
-  "license": "PRIVATE",
+  "author": "Sebastian Foth <ich@sebastianfoth.de>",
+  "license": "PUBLIC",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "precommit": "lint-staged",
     "prepublish:npm": "npm run build",
-    "publish:npm": "npm publish",
+    "publish:npm": "npm publish --access public",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
     "test:watch": "jest --watch",
