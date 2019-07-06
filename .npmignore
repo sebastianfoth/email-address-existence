@@ -1,0 +1,10 @@
+node_modules/
+.idea/
+src/
+test/
+.prettierrc
+.gitignore
+.internal/
+tsconfig.json
+tsconfig.build.json
+tslint.json
