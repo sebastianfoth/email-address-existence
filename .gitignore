@@ -1,3 +1,5 @@
 .idea
+.internal
 node_modules
 dist
+.npmrc
