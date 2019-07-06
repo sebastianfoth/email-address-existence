@@ -2,7 +2,7 @@
 A library written in Typescript which tries to validate if an email address really exists by connecting to the responsible email server.
 
 # How to install
-``npm install @sebastianfoth/email-address-existence --save```
+```npm install @sebastianfoth/email-address-existence --save```
 
 # Usage / Howto
 ```js
