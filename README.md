@@ -11,7 +11,7 @@ import { EmailAddressExistenceService, EmailValidationStatus } from '@sebastianf
 const service = new EmailAddressExistenceService();
 const result = await service.validate({
   recipient: 'MAIL_ADDRESS_TO_CHECK_FOR_EXISTENCE',
-  sender: 'YOUR_MAIL_ADDRESS',
+  sender: 'YOUR_MAIL_A`DDRESS',
   timeout: 3000,
   portTelnet: 25,
   debug: true,
