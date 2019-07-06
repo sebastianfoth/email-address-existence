@@ -4,4 +4,5 @@ export interface EmailAddressExistenceOptions {
     timeout: number;
     portTelnet?: number;
     debug?: boolean;
+    eol?: string;
 }

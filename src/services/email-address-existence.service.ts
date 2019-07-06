@@ -6,6 +6,11 @@ export class EmailAddressExistenceService {
   private dns = require('dns');
   private net = require('net');
 
+  /**
+   * Tries to validate if the specific email address exists on the specified mail server
+   *
+   * @param options EmailAddressExistenceOptions
+   */
   public async validate(options: EmailAddressExistenceOptions): Promise<EmailValidationStatus> {
     const domain = this.extractDomain(options.recipient);
     const relevantMailServer = await this.getRelevantMailServer(domain);
@@ -15,6 +20,7 @@ export class EmailAddressExistenceService {
   /**
    * Extracts the Domain of a given Email Address
    * @TODO Testable util method
+   *
    * @param recipient
    */
   private extractDomain(recipient: string) {
@@ -29,10 +35,10 @@ export class EmailAddressExistenceService {
    */
   private async getRelevantMailServer(domain: string) {
     const resolveMx = promisify(this.dns.resolveMx);
-    const addresses = await resolveMx(domain);
+    const addressesMx = await resolveMx(domain);
 
-    const sortedAddresses = addresses.sort((a, b) => a.priority - b.priority);
-    return sortedAddresses[0].exchange;
+    const sortedAddressesMx = addressesMx.sort((a, b) => a.priority - b.priority);
+    return sortedAddressesMx[0].exchange;
   }
 
   /**
@@ -57,6 +63,7 @@ export class EmailAddressExistenceService {
         conn.write(`RCPT TO: <${options.recipient}>` + EOL);
         conn.write('QUIT' + EOL);
 
+        /* */
         conn.on('data', data => {
 
           const response = data.toString().trim();
@@ -73,11 +80,16 @@ export class EmailAddressExistenceService {
           if (response.startsWith('553')) {
             resolve(EmailValidationStatus.INVALID_SYNTAX);
           }
+
+          /* */
+          if (response.startsWith('554')) {
+            resolve(EmailValidationStatus.BLOCKED_BY_PROVIDER);
+          }
         });
 
         /* */
         conn.on('end', () => resolve(EmailValidationStatus.MAY_EXISTS));
-        
+
       });
     });
   }
