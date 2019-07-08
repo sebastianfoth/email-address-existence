@@ -68,23 +68,28 @@ export class EmailAddressExistenceService {
 
           const response = data.toString().trim();
           if (options.debug) {
-            console.log(response);
+            console.log('Line', response);
           }
 
-          /* */
-          if (response.startsWith('550')) {
-            resolve(EmailValidationStatus.NOT_FOUND);
+          const lines = response.split(EOL);
+
+          for (const line of lines) {
+            /* */
+            if (line.trim().startsWith('550')) {
+              return resolve(EmailValidationStatus.NOT_FOUND);
+            }
+
+            /* */
+            if (line.trim().startsWith('553')) {
+              return resolve(EmailValidationStatus.INVALID_SYNTAX);
+            }
+
+            /* */
+            if (line.trim().startsWith('554')) {
+              return resolve(EmailValidationStatus.BLOCKED_BY_PROVIDER);
+            }
           }
 
-          /* */
-          if (response.startsWith('553')) {
-            resolve(EmailValidationStatus.INVALID_SYNTAX);
-          }
-
-          /* */
-          if (response.startsWith('554')) {
-            resolve(EmailValidationStatus.BLOCKED_BY_PROVIDER);
-          }
         });
 
         /* */

@@ -1,6 +1,6 @@
 {
   "name": "@sebastianfoth/email-address-existence",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "A library written in Typescript which tries to check if an email address really exists",
   "homepage": "https://github.com/sebastianfoth/email-address-existence",
   "bugs": {
